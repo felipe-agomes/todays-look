@@ -1,0 +1,52 @@
+.homePage {
+	height: 100vh;
+}
+
+.footerPage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 50px;
+	width: 100vw;
+	background: #ddd;
+	padding: 10px;
+}
+
+.addIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 60px;
+	width: 60px;
+	background-color: green;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.boxAddIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	transform: translateY(-16px);
+}
+
+.boxAddIcon > p {
+	font-size: 0.8rem;
+}
+
+.page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 100vh;
+	width: 100%;
+	background: #eee;
+}
