@@ -1,5 +1,5 @@
-import { Response } from '@/@types/controller';
-import { FrontController } from '@/controllers/FrontController';
+import { Response } from '../@types/controller';
+import { FrontController } from '../controllers/FrontController';
 import { FetcherAxios } from './Fetcher';
 
 interface IUserService {
@@ -52,8 +52,7 @@ export class UserService implements IUserService {
 			});
 			console.log({ userService: response });
 			return response;
-		} catch (error) {
-			console.log({ userServiceError: error.message });
+		} catch {
 			return {
 				status: 'error',
 				message: 'Erro ao logar usuário',

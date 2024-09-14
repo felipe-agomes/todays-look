@@ -1,4 +1,6 @@
+import { Response } from '../@types/controller';
 import { ClotheData } from '../@types/models';
+import { clotheService } from '../services/ClotheService';
 import useAppContext from './useAppContext';
 
 export default function useSetCltohes() {

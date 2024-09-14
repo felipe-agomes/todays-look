@@ -4,9 +4,9 @@ import ProviderModalLoading from '../../../contexts/ModalLoading';
 import useModaisContext from '../../../hooks/useModaisContext';
 import useModaisController from '../../../hooks/useModaisController';
 import useModalLoadingContext from '../../../hooks/useModalLoadingContext';
-import S from './Set.module.css';
 import ChangeCategory from '../ChangeCategory';
 import DeleteModal from '../Delete';
+import { CloseIcon } from '@chakra-ui/icons';
 
 export default function SetRoot({
 	title,
@@ -25,8 +25,8 @@ export default function SetRoot({
 
 	return (
 		<ProviderModalLoading>
-			<div className={S.modalRoot}>
-				<div className={S.title}>
+			<div className={''}>
+				<div className={''}>
 					<p>
 						{title}: {category}
 					</p>
@@ -43,7 +43,7 @@ export default function SetRoot({
 				{loading && (
 					<Spinner
 						color={'cyan'}
-						className={S.spinner}
+						className={''}
 					/>
 				)}
 				{changeCategoryModal && <ChangeCategory set={set} />}

@@ -17,30 +17,34 @@ import WorkbenchSet from '../../components/WorkbenchSet';
 import ProfilePage from '../../components/ProfilePage';
 import { categoriesClotheOrSet } from '../../functions/categoriesClotheOrSet';
 import useSetSets from '../../hooks/useSetSets';
-import useSetCltohes from '../../hooks/useSetClothes';
+import useSetClothes from '../../hooks/useSetClothes';
 import useAppContext from '../../hooks/useAppContext';
 import { ClotheData, SetData, UserData } from '../../@types/models';
 import { Header } from '../../components/Header';
 import { userService } from '../../services/UserService';
+import { AddIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
 	const { clothes, sets } = useAppContext();
-	const { updateClothes } = useSetCltohes();
+	const { updateClothes } = useSetClothes();
 	const { updateSet } = useSetSets();
-	const router = useRouter();
+	const navigate = useNavigate();
 	const setsCategories = categoriesClotheOrSet<SetData>(sets);
 	const clothesCategories = categoriesClotheOrSet<ClotheData>(clothes);
 	const [user, setUser] = useState<UserData | null>(null);
+
 	const getSession = async () => {
-		const { status, data: user, message } = await userService.getUserData();
+		const { status, data: user } = await userService.getUserData();
 		setUser(user);
 		if (status === 'error') {
-			await router.push('/login');
+			navigate('/login');
 			return;
 		}
 		updateClothes(user.id);
 		updateSet(user.id);
 	};
+
 	useEffect(() => {
 		getSession();
 	}, []);

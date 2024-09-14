@@ -10,6 +10,7 @@ import S from './ChangeCategory.module.css';
 import { useFormik } from 'formik';
 import { clotheService } from '../../../services/ClotheService';
 import { setService } from '../../../services/SetService';
+import { CloseIcon } from '@chakra-ui/icons';
 
 export default function ChangeCategory({
 	clothe,

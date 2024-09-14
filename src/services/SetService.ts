@@ -1,7 +1,7 @@
-import { Response } from '@/@types/controller';
+import { Response } from '../@types/controller';
+import { SetInput } from '../@types/models';
+import { FrontController } from '../controllers/FrontController';
 import { FetcherAxios } from './Fetcher';
-import { SetInput } from '@/@types/models';
-import { FrontController } from '@/controllers/FrontController';
 
 export interface ISetService {
 	getAllByUserId(data: { userId: string }): Promise<Response>;
@@ -17,15 +17,25 @@ export interface ISetService {
 
 export class SetService implements ISetService {
 	constructor(private frontController: FrontController) {}
-	async getAllByUserId({ userId }: { userId: string | undefined}): Promise<Response> {
-		let response: Response;
+	async getAllByUserId({
+		userId,
+	}: {
+		userId: string | undefined;
+	}): Promise<Response> {
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doGet({
 				url: `/api/protected/user/${userId}/set`,
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
@@ -36,14 +46,20 @@ export class SetService implements ISetService {
 		userId: string | undefined;
 		set: string | undefined;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doDelete({
 				url: `/api/protected/user/${userId}/set/${set}`,
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
@@ -56,15 +72,21 @@ export class SetService implements ISetService {
 		set: string | undefined;
 		toUpdate: { [key: string]: string };
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doPut({
 				url: `/api/protected/user/${userId}/set/${set}`,
 				body: { toUpdate, operation: 'changeCategory' },
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
@@ -72,31 +94,43 @@ export class SetService implements ISetService {
 		userId,
 		set,
 	}: {
-		userId: string;
-		set: string;
+		userId: string | undefined;
+		set: string | undefined;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doPut({
 				url: `/api/protected/user/${userId}/set/${set}`,
 				body: { operation: 'toggleFavorite' },
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
 	async create(set: SetInput): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doPost({
 				url: `/api/protected/user/${set.userId}/set`,
 				body: { set },
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}

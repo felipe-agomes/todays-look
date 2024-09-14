@@ -4,10 +4,10 @@ export type UserInput = {
 	image: string;
 };
 export type ClotheInput = {
-	category: string;
-	key: string;
-	image: string;
-	userId: string;
+	category: string | null;
+	key: string | null;
+	image: string | null;
+	userId: string | null;
 };
 export type SetInput = {
 	userId: string;

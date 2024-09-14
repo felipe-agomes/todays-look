@@ -3,10 +3,11 @@ import useAppContext from '../../hooks/useAppContext';
 import useModaisController from '../../hooks/useModaisController';
 import useSetSets from '../../hooks/useSetSets';
 import useWorkBench from '../../hooks/useWorkBench';
-import S from './WorkbenchSet.module.css';
 import { ClothePosition } from '../../@types/models';
 import ClotheSet from '../ClotheSet';
 import { Button } from '@chakra-ui/react';
+import { useFormik } from 'formik';
+import { setService } from '../../services/SetService';
 
 export default function WorkbenchSet() {
 	const { resetWorkbench } = useWorkBench();
@@ -54,8 +55,8 @@ export default function WorkbenchSet() {
 		formik.resetForm({ values: { category: '' } });
 	}
 	return (
-		<div className={S.container}>
-			<div className={S.workbench}>
+		<div className={''}>
+			<div className={''}>
 				{clothesPosition.map((clothe: ClothePosition) => {
 					return (
 						<ClotheSet
@@ -67,11 +68,11 @@ export default function WorkbenchSet() {
 				})}
 			</div>
 			<form
-				className={S.form}
+				className={''}
 				onSubmit={formik.handleSubmit}
 			>
 				<input
-					className={S.input}
+					className={''}
 					placeholder='Categoria'
 					type='text'
 					name='category'

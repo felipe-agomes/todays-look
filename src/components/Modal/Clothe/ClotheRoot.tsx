@@ -7,6 +7,7 @@ import useModalLoadingContext from '../../../hooks/useModalLoadingContext';
 import S from './Clothe.module.css';
 import DeleteModal from '../Delete';
 import ChangeCategory from '../ChangeCategory';
+import { CloseIcon } from '@chakra-ui/icons';
 
 export default function ClotheRoot({
 	title,

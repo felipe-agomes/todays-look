@@ -23,11 +23,11 @@ export default function DeleteModal({
 	const isClothe = !!clothe;
 
 	return (
-		<div className={S.modalContainer}>
+		<div className={''}>
 			{loading && (
 				<Spinner
 					color={'cyan'}
-					className={S.spinner}
+					className={''}
 				/>
 			)}
 			<h1>{`Deseja realmente remover ${isClothe ? 'a roupa' : 'o conjunto'}?`}</h1>

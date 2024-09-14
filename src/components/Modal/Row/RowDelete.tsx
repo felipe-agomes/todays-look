@@ -1,3 +1,4 @@
+import { DeleteIcon } from '@chakra-ui/icons';
 import { ClotheData, SetData } from '../../../@types/models';
 import useModaisContext from '../../../hooks/useModaisContext';
 import S from './Row.module.css';
@@ -10,7 +11,7 @@ export default function RowDelete({
 	set?: SetData;
 }) {
 	const { setDeleteModal } = useModaisContext();
-	const isClothe = !!clothe ? true : false;
+	const isClothe = !!clothe;
 
 	return (
 		<div className={S.row}>
@@ -18,7 +19,7 @@ export default function RowDelete({
 			<span>
 				<DeleteIcon
 					onClick={() => {
-						setDeleteModal(isClothe ? clothe.id : set.id);
+						setDeleteModal(isClothe ? clothe.id : set?.id ?? null);
 					}}
 					cursor={'pointer'}
 					color={'red'}

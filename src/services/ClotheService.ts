@@ -1,4 +1,6 @@
+import { Response } from '../@types/controller';
 import { ClotheInput } from '../@types/models';
+import { FrontController } from '../controllers/FrontController';
 import { FetcherAxios } from './Fetcher';
 
 export interface IClotheService {
@@ -19,14 +21,20 @@ export interface IClotheService {
 export class ClotheService implements IClotheService {
 	constructor(private frontController: FrontController) {}
 	async getAllByUserId({ userId }: { userId: string }): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doGet({
 				url: `/api/protected/user/${userId}/clothe`,
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
@@ -37,14 +45,20 @@ export class ClotheService implements IClotheService {
 		userId: string;
 		clothe: string;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doDelete({
 				url: `/api/protected/user/${userId}/clothe/${clothe}`,
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
@@ -57,15 +71,21 @@ export class ClotheService implements IClotheService {
 		clothe: string;
 		toUpdate: { category: string };
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doPut({
 				url: `/api/protected/user/${userId}/clothe/${clothe}`,
 				body: { toUpdate, operation: 'changeCategory' },
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
@@ -73,31 +93,43 @@ export class ClotheService implements IClotheService {
 		userId,
 		clothe,
 	}: {
-		userId: string;
-		clothe: string;
+		userId: string | undefined;
+		clothe: string | undefined;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doPut({
 				url: `/api/protected/user/${userId}/clothe/${clothe}`,
 				body: { operation: 'toggleFavorite' },
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}
 	async create(clothe: ClotheInput): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			response = await this.frontController.doPost({
 				url: `/api/protected/user/${clothe.userId}/clothe`,
 				body: { clothe },
 				Authorization: `Bearer ${localStorage.getItem('token')}`,
 			});
-		} catch (error: any) {
-			response = { status: 'error', message: error.message };
+		} catch (error) {
+			if (error instanceof Error) {
+				response = { status: 'error', message: error.message };
+			}
 		}
 		return response;
 	}

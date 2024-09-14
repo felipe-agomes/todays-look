@@ -1,7 +1,7 @@
 import { SetData } from "../../@types/models";
 
 type Pops = {
-	set: SetData;
+	set: SetData | undefined;
 	proportion?: {
 		x: number;
 		y: number;
@@ -19,7 +19,7 @@ export default function SetImages({
 }: Pops) {
 	return (
 		<>
-			{set.clothes.map((clothe) => {
+			{set?.clothes.map((clothe) => {
 				return (
 					<div
 						style={{

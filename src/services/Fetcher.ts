@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { Response } from '../@types/controller';
 
 export interface IFetcher {
 	get(data: { url: string; Authorization?: string }): Promise<Response>;
@@ -23,12 +25,18 @@ export class FetcherAxios implements IFetcher {
 		url: string;
 		Authorization?: string;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			const { data } = await axios.get(url, { headers: { Authorization } });
 			response = data as Response;
-		} catch (error: any) {
-			throw new Error('Erro ao buscar dados: ' + error.message);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Erro ao buscar dados: ' + error.message);
+			}
 		}
 		return response;
 	}
@@ -41,15 +49,22 @@ export class FetcherAxios implements IFetcher {
 		body: string;
 		Authorization?: string;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			const { data } = await axios.post(url, body, {
 				headers: { 'Content-Type': 'application/json', Authorization },
 			});
 			response = data as Response;
-		} catch (error: any) {
-			throw new Error('Erro ao enviar dados: ' + error.message);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Erro ao enviar dados: ' + error.message);
+			}
 		}
+
 		return response;
 	}
 	async put({
@@ -61,14 +76,20 @@ export class FetcherAxios implements IFetcher {
 		body: string;
 		Authorization?: string;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			const { data } = await axios.put(url, body, {
 				headers: { 'Content-Type': 'application/json', Authorization },
 			});
 			response = data as Response;
-		} catch (error: any) {
-			throw new Error('Erro ao atualizar dados: erro' + error.message);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Erro ao atualizar dados: erro' + error.message);
+			}
 		}
 		return response;
 	}
@@ -79,12 +100,18 @@ export class FetcherAxios implements IFetcher {
 		url: string;
 		Authorization?: string;
 	}): Promise<Response> {
-		let response: Response;
+		let response: Response = {
+			message: '',
+			status: '',
+			data: null,
+		};
 		try {
 			const { data } = await axios.delete(url, { headers: { Authorization } });
 			response = data as Response;
-		} catch (error: any) {
-			throw new Error('Erro ao deletar dados: ' + error.message);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Erro ao deletar dados: ' + error.message);
+			}
 		}
 		return response;
 	}

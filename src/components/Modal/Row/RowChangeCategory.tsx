@@ -1,3 +1,4 @@
+import { EditIcon } from '@chakra-ui/icons';
 import { ClotheData, SetData } from '../../../@types/models';
 import useModaisContext from '../../../hooks/useModaisContext';
 import S from './Row.module.css';
@@ -10,7 +11,7 @@ export default function RowChangeCategory({
 	set?: SetData;
 }) {
 	const { setChangeCategoryModal } = useModaisContext();
-	const isClothe = !!clothe ? true : false;
+	const isClothe = !!clothe;
 
 	return (
 		<div className={S.row}>
@@ -18,7 +19,7 @@ export default function RowChangeCategory({
 			<span>
 				<EditIcon
 					onClick={() => {
-						setChangeCategoryModal(isClothe ? clothe.id : set.id);
+						setChangeCategoryModal(isClothe ? clothe.id : set?.id ?? null);
 					}}
 					cursor={'pointer'}
 					boxSize={5}

@@ -2,7 +2,7 @@ import useAppContext from './useAppContext';
 
 export default function useWorkBench() {
 	const { workbench, setWorkbench, clothes } = useAppContext();
-	function addClotheToWorkbench(clotheId: string) {
+	function addClotheToWorkbench(clotheId: string | undefined) {
 		const alreadyExists = workbench.some((clothe) => clothe.id === clotheId);
 		if (alreadyExists) return;
 		const newClothe = clothes.find((clothe) => clothe.id === clotheId);
@@ -13,7 +13,7 @@ export default function useWorkBench() {
 	function resetWorkbench() {
 		setWorkbench([]);
 	}
-	function removeClotheFromWorkbench(clotheId: string) {
+	function removeClotheFromWorkbench(clotheId: string | undefined) {
 		const newWorkbench = workbench.filter((clothe) => clothe.id !== clotheId);
 		setWorkbench(newWorkbench);
 	}

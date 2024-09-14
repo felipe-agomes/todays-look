@@ -1,6 +1,6 @@
 import S from './AddClothe.module.css';
 import { Button, Input } from '@chakra-ui/react';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import useSetCltohes from '../../hooks/useSetClothes';
 import { clotheService } from '../../services/ClotheService';
 import { useForm } from 'react-hook-form';
@@ -17,29 +17,21 @@ type Props = {
 export default function AddClothe({ userId }: Props) {
 	const [loading, setLoading] = useState<boolean>(false);
 	const { updateClothes } = useSetCltohes();
-	const displayRef = useRef<string | null>(null);
-	const { register, handleSubmit, watch } = useForm<FormInput>();
+	const { register, handleSubmit } = useForm<FormInput>();
+
 	async function onSubmit({ category, url }: FormInput) {
 		setLoading(true);
 		await clotheService.create({ category, image: url, key: url, userId });
-		displayRef.current = null;
 		setLoading(false);
 		updateClothes(userId);
 	}
-	displayRef.current = watch('url');
 
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
 			className={S.boxForm}
 		>
-			<div className={S.inputFile}>
-				<img
-					ref={displayRef}
-					src={displayRef.current}
-					alt='Imagem'
-				/>
-			</div>
+			<div className={S.inputFile}></div>
 			<label
 				style={{ alignSelf: 'start' }}
 				htmlFor='category'
@@ -60,7 +52,6 @@ export default function AddClothe({ userId }: Props) {
 				className={S.textInput}
 				type='text'
 				id='category'
-				name='category'
 				{...register('category')}
 			/>
 			<Button
