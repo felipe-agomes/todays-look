@@ -1,4 +1,4 @@
-import S from './GridSets.module.css';
+import './GridSets.css';
 import SetImages from '../SetImages';
 import { ClotheModal } from '../Modal/Clothe';
 import { SetModal } from '../Modal/Set';
@@ -34,7 +34,7 @@ export default function GridSets() {
 					</SetModal.Content.Root>
 				</SetModal.Root>
 			)}
-			<ul className={S.boxList}>
+			<ul className={'boxList'}>
 				{filteredSetByCategory.map((set) => {
 					return (
 						<li

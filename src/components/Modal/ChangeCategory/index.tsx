@@ -1,12 +1,11 @@
 import { Button, Spinner } from '@chakra-ui/react';
-import { ClotheData, SetData } from '../../../@types/models';
+import { CategorizedItem, ClotheData, SetData } from '../../../@types/models';
 import { categoriesClotheOrSet } from '../../../functions/categoriesClotheOrSet';
 import useAppContext from '../../../hooks/useAppContext';
 import useModaisController from '../../../hooks/useModaisController';
 import useModalLoadingContext from '../../../hooks/useModalLoadingContext';
 import useSetCltohes from '../../../hooks/useSetClothes';
 import useSetSets from '../../../hooks/useSetSets';
-import S from './ChangeCategory.module.css';
 import { useFormik } from 'formik';
 import { clotheService } from '../../../services/ClotheService';
 import { setService } from '../../../services/SetService';
@@ -19,7 +18,7 @@ export default function ChangeCategory({
 	clothe?: ClotheData;
 	set?: SetData;
 }) {
-	const { clothes, sets } = useAppContext();
+	const { clothes } = useAppContext();
 	const { closeChangeCategoryModal } = useModaisController();
 	const { setLoading, loading } = useModalLoadingContext();
 	const { replaceClothes } = useSetCltohes();
@@ -37,9 +36,7 @@ export default function ChangeCategory({
 		onSubmit: handleSubmit,
 	});
 	const isClothe = !!clothe;
-	const categories = isClothe
-		? categoriesClotheOrSet<ClotheData>(clothes)
-		: categoriesClotheOrSet<SetData>(sets);
+	const categories = categoriesClotheOrSet<CategorizedItem>(clothes);
 	async function handleSubmit({
 		existingCategory,
 		category,
@@ -77,11 +74,11 @@ export default function ChangeCategory({
 	}
 
 	return (
-		<div className={S.modalContainer}>
+		<div className={''}>
 			{loading && (
 				<Spinner
 					color={'cyan'}
-					className={S.spinner}
+					className={''}
 				/>
 			)}
 			<CloseIcon
@@ -95,7 +92,7 @@ export default function ChangeCategory({
 			/>
 			<form onSubmit={formikExistingCategory.handleSubmit}>
 				<h2>Categoria existente</h2>
-				<div className={S.row}>
+				<div className={''}>
 					<select
 						onChange={formikExistingCategory.handleChange}
 						value={formikExistingCategory.values.existingCategory!}
@@ -126,7 +123,7 @@ export default function ChangeCategory({
 			</form>
 			<form onSubmit={formikNewCategory.handleSubmit}>
 				<h2>Nova categoria</h2>
-				<div className={S.row}>
+				<div className={''}>
 					<input
 						type='text'
 						id='category'

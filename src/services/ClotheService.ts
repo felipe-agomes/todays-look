@@ -1,142 +1,105 @@
-import { Response } from '../@types/controller';
-import { ClotheInput } from '../@types/models';
-import { FrontController } from '../controllers/FrontController';
-import { FetcherAxios } from './Fetcher';
+import { ClotheData, ClotheInput } from '../@types/models';
 
 export interface IClotheService {
-	getAllByUserId(data: { userId: string }): Promise<Response>;
-	deleteById(data: { userId: string; clothe: string }): Promise<Response>;
-	changeCategoryById(data: {
-		userId: string;
-		clothe: string;
-		toUpdate: { category: string };
-	}): Promise<Response>;
-	toggleFavoriteById(data: {
-		userId: string;
-		clothe: string;
-	}): Promise<Response>;
-	create(data: ClotheInput): Promise<Response>;
+	getAllByUserId(userId: number): ClotheData[];
+
+	deleteById(clotheId: number): boolean;
+
+	changeCategoryById(clotheId: number, newCategory: string): ClotheData;
+
+	toggleFavoriteById(clotheId: number): ClotheData;
+
+	create(clothe: ClotheInput): ClotheData;
 }
 
 export class ClotheService implements IClotheService {
-	constructor(private frontController: FrontController) {}
-	async getAllByUserId({ userId }: { userId: string }): Promise<Response> {
-		let response: Response = {
-			message: '',
-			status: '',
-			data: null,
-		};
-		try {
-			response = await this.frontController.doGet({
-				url: `/api/protected/user/${userId}/clothe`,
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				response = { status: 'error', message: error.message };
-			}
-		}
-		return response;
+	getAllByUserId(userId: number): ClotheData[] {
+		return [
+			{
+				category: '',
+				createdAt: new Date(),
+				favorite: true,
+				id: 1,
+				image: '/Khaki-Cargo-Pant-Transparent-Background.png',
+				key: 1,
+				updatedAt: new Date(),
+				userId: 1,
+			},
+			{
+				category: '',
+				createdAt: new Date(),
+				favorite: true,
+				id: 2,
+				image: '/pngwing.com.png',
+				key: 2,
+				updatedAt: new Date(),
+				userId: 1,
+			},
+			{
+				category: '',
+				createdAt: new Date(),
+				favorite: true,
+				id: 3,
+				image: '/Jacket-Free-PNG.png',
+				key: 3,
+				updatedAt: new Date(),
+				userId: 1,
+			},
+			{
+				category: '',
+				createdAt: new Date(),
+				favorite: true,
+				id: 4,
+				image: '/Halloween-Shirts-Free-Picture-PNG.png',
+				key: 4,
+				updatedAt: new Date(),
+				userId: 1,
+			},
+		];
 	}
-	async deleteById({
-		clothe,
-		userId,
-	}: {
-		userId: string;
-		clothe: string;
-	}): Promise<Response> {
-		let response: Response = {
-			message: '',
-			status: '',
-			data: null,
-		};
-		try {
-			response = await this.frontController.doDelete({
-				url: `/api/protected/user/${userId}/clothe/${clothe}`,
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				response = { status: 'error', message: error.message };
-			}
-		}
-		return response;
+
+	deleteById(clotheId: number): boolean {
+		return true;
 	}
-	async changeCategoryById({
-		userId,
-		clothe,
-		toUpdate,
-	}: {
-		userId: string;
-		clothe: string;
-		toUpdate: { category: string };
-	}): Promise<Response> {
-		let response: Response = {
-			message: '',
-			status: '',
-			data: null,
+
+	changeCategoryById(clotheId: number, newCategory: string): ClotheData {
+		return {
+			category: '',
+			createdAt: new Date(),
+			favorite: true,
+			id: 1,
+			image: '',
+			key: 1,
+			updatedAt: new Date(),
+			userId: 1,
 		};
-		try {
-			response = await this.frontController.doPut({
-				url: `/api/protected/user/${userId}/clothe/${clothe}`,
-				body: { toUpdate, operation: 'changeCategory' },
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				response = { status: 'error', message: error.message };
-			}
-		}
-		return response;
 	}
-	async toggleFavoriteById({
-		userId,
-		clothe,
-	}: {
-		userId: string | undefined;
-		clothe: string | undefined;
-	}): Promise<Response> {
-		let response: Response = {
-			message: '',
-			status: '',
-			data: null,
+
+	toggleFavoriteById(clotheId: number): ClotheData {
+		return {
+			category: '',
+			createdAt: new Date(),
+			favorite: true,
+			id: 1,
+			image: '',
+			key: 1,
+			updatedAt: new Date(),
+			userId: 1,
 		};
-		try {
-			response = await this.frontController.doPut({
-				url: `/api/protected/user/${userId}/clothe/${clothe}`,
-				body: { operation: 'toggleFavorite' },
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				response = { status: 'error', message: error.message };
-			}
-		}
-		return response;
 	}
-	async create(clothe: ClotheInput): Promise<Response> {
-		let response: Response = {
-			message: '',
-			status: '',
-			data: null,
+
+	create(clothe: ClotheInput): ClotheData {
+		return {
+			category: '',
+			createdAt: new Date(),
+			favorite: true,
+			id: 1,
+			image: '',
+			key: 1,
+			updatedAt: new Date(),
+			userId: 1,
 		};
-		try {
-			response = await this.frontController.doPost({
-				url: `/api/protected/user/${clothe.userId}/clothe`,
-				body: { clothe },
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				response = { status: 'error', message: error.message };
-			}
-		}
-		return response;
 	}
 }
-const makeClotheService = () => {
-	const fetcher = new FetcherAxios();
-	const frontController = new FrontController(fetcher);
-	return new ClotheService(frontController);
-};
-export const clotheService = makeClotheService();
+
+export const clotheService = new ClotheService();

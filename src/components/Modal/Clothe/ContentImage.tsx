@@ -1,4 +1,4 @@
-import S from './Clothe.module.css';
+import './Clothe.css';
 
 export default function ContentImage({
 	image,
@@ -8,7 +8,7 @@ export default function ContentImage({
 	category: string | undefined;
 }) {
 	return (
-		<div className={S.imageContain}>
+		<div className={'imageContain'}>
 			<img
 				src={image}
 				alt={`Roupa: ${category}`}

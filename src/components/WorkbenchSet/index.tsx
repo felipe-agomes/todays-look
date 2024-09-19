@@ -1,3 +1,4 @@
+import './WorkbenchSet.css';
 import { useEffect, useState } from 'react';
 import useAppContext from '../../hooks/useAppContext';
 import useModaisController from '../../hooks/useModaisController';
@@ -55,8 +56,8 @@ export default function WorkbenchSet() {
 		formik.resetForm({ values: { category: '' } });
 	}
 	return (
-		<div className={''}>
-			<div className={''}>
+		<div className={'container'}>
+			<div className={'workbench'}>
 				{clothesPosition.map((clothe: ClothePosition) => {
 					return (
 						<ClotheSet
@@ -68,11 +69,11 @@ export default function WorkbenchSet() {
 				})}
 			</div>
 			<form
-				className={''}
+				className={'form'}
 				onSubmit={formik.handleSubmit}
 			>
 				<input
-					className={''}
+					className={'input'}
 					placeholder='Categoria'
 					type='text'
 					name='category'

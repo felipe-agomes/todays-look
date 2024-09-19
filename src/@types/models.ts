@@ -15,7 +15,7 @@ export type SetInput = {
 	clothes: Array<ClotheData & { x: number; y: number }>;
 };
 export type UserData = {
-	id: string;
+	id: number;
 	email: string;
 	name: string;
 	image: string;
@@ -24,13 +24,16 @@ export type UserData = {
 };
 export type ClotheData = {
 	favorite: boolean;
-	id: string;
+	id: number;
 	category: string;
-	key: string;
+	key: number;
 	image: string;
 	updatedAt: Date;
 	createdAt: Date;
-	userId: string;
+	userId: number;
+};
+export type CategorizedItem = {
+	category: string;
 };
 export type SetData = {
 	id: string;

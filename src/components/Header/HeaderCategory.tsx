@@ -1,6 +1,6 @@
+import './Header.css';
 import useAppContext from '../../hooks/useAppContext';
 import useModaisController from '../../hooks/useModaisController';
-import S from './Header.module.css';
 
 type Props = {
 	isClothe?: boolean;
@@ -21,14 +21,14 @@ export default function HeaderCategory({ isClothe, categories }: Props) {
 	const categoryWithFavoritoAndTodos = ['Favoritos', 'Todos', ...categories];
 
 	return (
-		<nav className={S.navegation}>
-			<ul className={S.categories}>
+		<nav className={'navegation'}>
+			<ul className={'categories'}>
 				{categoryWithFavoritoAndTodos.map((categoryMap) => {
 					return (
 						<li
 							key={categoryMap}
 							style={{ cursor: 'pointer' }}
-							className={category === categoryMap ? S.categoryActive : ''}
+							className={category === categoryMap ? 'categoryActive' : ''}
 							onClick={() => {
 								setCategory(categoryMap);
 								closeAllModais();

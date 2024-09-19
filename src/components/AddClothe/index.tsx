@@ -1,4 +1,4 @@
-import S from './AddClothe.module.css';
+import './AddClothe.css';
 import { Button, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSetCltohes from '../../hooks/useSetClothes';
@@ -29,9 +29,9 @@ export default function AddClothe({ userId }: Props) {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className={S.boxForm}
+			className={'boxForm'}
 		>
-			<div className={S.inputFile}></div>
+			<div className={'inputFile'}></div>
 			<label
 				style={{ alignSelf: 'start' }}
 				htmlFor='category'
@@ -39,7 +39,7 @@ export default function AddClothe({ userId }: Props) {
 				URL
 			</label>
 			<input
-				className={S.textInput}
+				className={'textInput'}
 				{...register('url')}
 			/>
 			<label
@@ -49,7 +49,7 @@ export default function AddClothe({ userId }: Props) {
 				Categoria
 			</label>
 			<Input
-				className={S.textInput}
+				className={'textInput'}
 				type='text'
 				id='category'
 				{...register('category')}

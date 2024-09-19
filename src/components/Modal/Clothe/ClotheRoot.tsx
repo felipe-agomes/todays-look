@@ -1,10 +1,10 @@
+import './Clothe.css';
 import { Spinner } from '@chakra-ui/react';
 import { ClotheData } from '../../../@types/models';
 import ProviderModalLoading from '../../../contexts/ModalLoading';
 import useModaisContext from '../../../hooks/useModaisContext';
 import useModaisController from '../../../hooks/useModaisController';
 import useModalLoadingContext from '../../../hooks/useModalLoadingContext';
-import S from './Clothe.module.css';
 import DeleteModal from '../Delete';
 import ChangeCategory from '../ChangeCategory';
 import { CloseIcon } from '@chakra-ui/icons';
@@ -26,8 +26,8 @@ export default function ClotheRoot({
 
 	return (
 		<ProviderModalLoading>
-			<div className={S.modalRoot}>
-				<div className={S.title}>
+			<div className={'modalRoot'}>
+				<div className={'title'}>
 					<p>
 						{title}: {category}
 					</p>
@@ -44,7 +44,7 @@ export default function ClotheRoot({
 				{loading && (
 					<Spinner
 						color={'cyan'}
-						className={S.spinner}
+						className={'spinner'}
 					/>
 				)}
 				{changeCategoryModal && <ChangeCategory clothe={clothe} />}

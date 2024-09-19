@@ -1,9 +1,9 @@
-import S from './Clothe.module.css';
+import './Clothe.css';
 
 export default function ContentRoot({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	return <div className={S.content}>{children}</div>;
+	return <div className={'content'}>{children}</div>;
 }

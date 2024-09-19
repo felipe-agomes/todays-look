@@ -1,4 +1,4 @@
-import S from './Header.module.css';
+import './Header.css';
 
 type Props = {
 	title: string;
@@ -8,8 +8,8 @@ type Props = {
 export default function HeaderRoot({ title, children }: Props) {
 	return (
 		<>
-			<header className={S.headerPage}>
-				<div className={S.topHeader}>
+			<header className={'headerPage'}>
+				<div className={'topHeader'}>
 					<h1>{title}</h1>
 				</div>
 				{children}

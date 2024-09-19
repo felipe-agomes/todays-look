@@ -1,5 +1,4 @@
-'use client';
-import S from './home.module.css';
+import './home.css';
 import {
 	Tabs,
 	TabPanels,
@@ -8,7 +7,6 @@ import {
 	Tab,
 	Avatar,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import ContainerPage from '../../components/ContainerPage';
 import GridSets from '../../components/GridSets';
 import GridClothes from '../../components/GridClothes';
@@ -21,50 +19,53 @@ import useSetClothes from '../../hooks/useSetClothes';
 import useAppContext from '../../hooks/useAppContext';
 import { ClotheData, SetData, UserData } from '../../@types/models';
 import { Header } from '../../components/Header';
-import { userService } from '../../services/UserService';
+// import { userService } from '../../services/UserService';
 import { AddIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { clotheService } from '../../services/ClotheService';
 
 export default function Home() {
 	const { clothes, sets } = useAppContext();
 	const { updateClothes } = useSetClothes();
-	const { updateSet } = useSetSets();
 	const navigate = useNavigate();
 	const setsCategories = categoriesClotheOrSet<SetData>(sets);
 	const clothesCategories = categoriesClotheOrSet<ClotheData>(clothes);
-	const [user, setUser] = useState<UserData | null>(null);
-
-	const getSession = async () => {
-		const { status, data: user } = await userService.getUserData();
-		setUser(user);
-		if (status === 'error') {
-			navigate('/login');
-			return;
-		}
-		updateClothes(user.id);
-		updateSet(user.id);
+	const user: UserData = {
+		createdAt: new Date(),
+		email: 'a',
+		id: 1,
+		image: '',
+		name: 'felipe',
+		updatedAt: new Date(),
 	};
 
+	if (user === null) {
+		navigate('/login');
+	}
+
 	useEffect(() => {
-		getSession();
+		const clothes: ClotheData[] = clotheService.getAllByUserId(user.id); // TODO: Mokado
+		updateClothes(clothes);
+		// updateSet(user.id);
 	}, []);
 
 	return (
 		<>
 			{user && (
 				<>
-					<head>
+					<div>
 						<title>{"Today's Look"}</title>
 						<link
 							rel='icon'
 							href='/favIcon.ico'
 						/>
-					</head>
-					<div className={S.homePage}>
+					</div>
+					<div className={'homePage'}>
 						<Tabs align='center'>
 							<main>
 								<TabPanels>
-									<TabPanel className={S.page}>
+									<TabPanel className={'page'}>
 										<Header.Root title='Conjuntos'>
 											<Header.Category categories={setsCategories} />
 										</Header.Root>
@@ -72,7 +73,7 @@ export default function Home() {
 											<GridSets />
 										</ContainerPage>
 									</TabPanel>
-									<TabPanel className={S.page}>
+									<TabPanel className={'page'}>
 										<Header.Root title='Roupas'>
 											<Header.Category
 												categories={clothesCategories}
@@ -83,19 +84,19 @@ export default function Home() {
 											<GridClothes />
 										</ContainerPage>
 									</TabPanel>
-									<TabPanel className={S.page}>
+									<TabPanel className={'page'}>
 										<Header.Root title='Adicionar Roupa' />
 										<ContainerPage>
 											<AddClothe userId={user && user.id} />
 										</ContainerPage>
 									</TabPanel>
-									<TabPanel className={S.page}>
+									<TabPanel className={'page'}>
 										<Header.Root title='Criar Conjunto' />
 										<ContainerPage>
 											<WorkbenchSet />
 										</ContainerPage>
 									</TabPanel>
-									<TabPanel className={S.page}>
+									<TabPanel className={'page'}>
 										<Header.Root title='Perfil' />
 										<ContainerPage>
 											<ProfilePage userName={user && user.name} />
@@ -104,7 +105,7 @@ export default function Home() {
 								</TabPanels>
 							</main>
 
-							<TabList className={S.footerPage}>
+							<TabList className={'footerPage'}>
 								<Tab height={10}>
 									<img
 										src='/wedding.png'
@@ -118,8 +119,8 @@ export default function Home() {
 									/>
 								</Tab>
 								<Tab height={10}>
-									<div className={S.boxAddIcon}>
-										<div className={S.addIcon}>
+									<div className={'boxAddIcon'}>
+										<div className={'addIcon'}>
 											<AddIcon
 												borderRadius={'full'}
 												width={5}

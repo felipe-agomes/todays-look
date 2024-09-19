@@ -1,9 +1,9 @@
+import './GridClothes.css';
 import { ClotheData } from '../../@types/models';
 import { filterClotheOrSetByCategory } from '../../functions/filterClotheOrSetByCategory';
 import useAppContext from '../../hooks/useAppContext';
 import useModaisContext from '../../hooks/useModaisContext';
 import { ClotheModal } from '../Modal/Clothe';
-import S from './GridClothes.module.css';
 
 export default function GridClothes() {
 	const { clothes, currentCategoryClothes } = useAppContext();
@@ -11,6 +11,7 @@ export default function GridClothes() {
 	const filteredClotheByCategory: ClotheData[] =
 		filterClotheOrSetByCategory<ClotheData>(currentCategoryClothes, clothes);
 	const currentClothe = clothes.find((clothe) => clothe.id === clotheModal);
+	console.log(filteredClotheByCategory);
 
 	return (
 		<>
@@ -34,11 +35,11 @@ export default function GridClothes() {
 					</ClotheModal.Content.Root>
 				</ClotheModal.Root>
 			)}
-			<ul className={S.boxList}>
+			<ul className={'boxList'}>
 				{filteredClotheByCategory.map((clothe) => {
 					return (
 						<li
-							className={S.list}
+							className={'list'}
 							key={clothe.id}
 						>
 							<img
